@@ -121,11 +121,5 @@ while True:
     time.sleep(0.1)
 ```
 
-## 7. Documentation
-For further details on how the system works, refer to the Documentation.
-
-## 8. Contributing
-Contributions are welcome! Please follow the guidelines provided in the CONTRIBUTING.md.
-
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
