@@ -10,22 +10,6 @@ The USB-CAN Bridge project facilitates communication between USB and CAN interfa
 - **Embedded Software Design**
 - **Light Motor Vehicles (LMV)**
 
-## Tools and Technologies
-
-- **Renesas CS+ IDE**
-- **R5F10BGC Microcontroller**
-- **Embedded C**
-- **UART**
-- **CAN**
-- **CAN Analyzer**
-- **Emulators**
-- **SPI**
-- **Linux**
-- **MATLAB Simulink**
-- **Hardware Design**
-- **Board Bring Up**
-- **Schematic Analysis**
-
 ## Description
 
 This project involves designing and implementing a USB-CAN converter for real-time monitoring and analysis in Light Motor Vehicles (LMVs). The system allows for communication between USB and CAN interfaces, integrating performance-enhancing algorithms for LMVs.
