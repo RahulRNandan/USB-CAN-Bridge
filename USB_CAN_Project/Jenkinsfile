@@ -2,35 +2,49 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'make -C embedded_firmware'
+                dir('embedded_firmware') {
+                    sh 'make'
+                }
             }
         }
-
-        stage('Unit Tests') {
+        stage('Generate Doxygen Documentation') {
             steps {
-                sh 'python3 -m unittest discover -s tests -p "test_*.py"'
+                dir('docs') {
+                    sh 'doxygen Doxyfile'
+                }
             }
         }
-
-        stage('Generate Documentation') {
+        stage('Check Python Version') {
             steps {
-                sh 'doxygen Jenkins_USBCAN/docs/Doxyfile'
+                sh 'python3 --version'
+            }
+        }
+        stage('Run Python Tests') {
+            steps {
+                dir('tests') {
+                    sh 'python3 -m unittest discover -s . -p "test_*.py"'
+                }
+            }
+        }
+        stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
             }
         }
     }
 
     post {
         always {
-            junit '**/tests/*.xml'
-            archiveArtifacts artifacts: 'docs/html/**', allowEmptyArchive: true
+            echo 'Cleaning up...'
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
