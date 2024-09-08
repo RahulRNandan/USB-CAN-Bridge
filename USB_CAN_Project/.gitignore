@@ -1,0 +1,8 @@
+# Ignore backup files and virtual environment directories
+Jenkins_USBCAN_backup/
+embedded_firmware/
+python_simulation/
+smbus2.py
+spidev.py
+uart.py
+venv/
