@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'make -C embedded_firmware'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh 'python3 -m unittest discover -s tests -p "test_*.py"'
+            }
+        }
+
+        stage('Generate Documentation') {
+            steps {
+                sh 'doxygen Jenkins_USBCAN/docs/Doxyfile'
+            }
+        }
+    }
+
+    post {
+        always {
+            junit '**/tests/*.xml'
+            archiveArtifacts artifacts: 'docs/html/**', allowEmptyArchive: true
+        }
+    }
+}
